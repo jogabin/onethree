@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns="http://java.sun.com/xml/ns/javaee" 
+	xmlns:web="http://java.sun.com/xml/ns/javaee" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" 
+	id="WebApp_ID" 
+	version="2.5">
+	
+	<display-name>springtest</display-name>
+  
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+			<filter-class>
+				org.springframework.web.filter.CharacterEncodingFilter
+			</filter-class>
+			<init-param>
+				<param-name>encoding</param-name>
+				<param-value>utf-8</param-value>
+			</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>	
+	
+	<!-- filter>
+		<filter-name>defautlFilter</filter-name>
+		<filter-class>
+			com.eastarjet.ecrew.common.filter.DefaultFilter
+		</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>defautlFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping -->
+	
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>	
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			classpath*:spring/spring-*.xml
+		</param-value>
+	</context-param>
+	
+	<servlet>
+		<servlet-name>springDispatcher</servlet-name>
+		<servlet-class>
+			org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>
+				/WEB-INF/config/springmvc/spring-servlet.xml
+			</param-value>
+		</init-param>		
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>springDispatcher</servlet-name>
+			<url-pattern>/</url-pattern>			
+	</servlet-mapping>
+	 
+	<!--  filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/</url-pattern>
+	</filter-mapping-->
+	
+	<resource-ref>
+		<description>test</description>
+		<res-ref-name>jdbc/SpringTestDB</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+	</resource-ref>
+		
+	
+</web-app>

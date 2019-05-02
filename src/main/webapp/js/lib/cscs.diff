@@ -1,0 +1,36 @@
+--- cscs.js.orig	Mon Aug 21 15:28:41 2006
++++ cscs.js	Fri Aug 25 13:37:35 2006
+@@ -1,5 +1,8 @@
+ // March 26, 2006
+ // Richard Greenwood
++//
++// August 22, 2006
++// aero   Fixed the problem in 7 parameter datum shift
+ 
+ /**
+   cscs.js is loosely based on PROJ.4 program cs2cs
+@@ -14,6 +17,9 @@
+ var EPSLN = 1.0e-10;
+ var SRS_WGS84_SEMIMAJOR=6378137.0;  // only used in grid shift transforms
+ 
++/* SEC_TO_RAD = Pi/180/3600 */
++var SEC_TO_RAD = 4.84813681109535993589914102357e-6
++
+ /* datum_type values */
+ var PJD_UNKNOWN  = 0;
+ var PJD_3PARAM   = 1;
+@@ -106,7 +112,14 @@
+           this.datum_params[4] != 0 ||
+           this.datum_params[5] != 0 ||
+           this.datum_params[6] != 0 )
++      {
+         this.datum_type = PJD_7PARAM;
++
++        this.datum_params[3] *= SEC_TO_RAD;
++        this.datum_params[4] *= SEC_TO_RAD;
++        this.datum_params[5] *= SEC_TO_RAD;
++        this.datum_params[6] = (this.datum_params[6]/1000000.0) + 1.0;
++      }
+     }
+   }
+ 
