@@ -24,12 +24,27 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class IndexController {
 	
+	//메뉴 타이틀
+	String contentTitle = "onethree";
+	//메뉴번호
+	String contentNumb = "";
+	
+	//메뉴타이틀, 메뉴번호 지정
+	public void setMenuTitle(ModelMap model,String contentSubTitle){
+		model.addAttribute("CONTENT_TITLE", contentTitle);
+		model.addAttribute("CONTENTSUB_TITLE", contentSubTitle);
+		model.addAttribute("CONTENT_NUMB", contentNumb);
+	}
+	
 	@RequestMapping(value="/index")
 	public String requestResult(
 			HttpServletRequest request,
 			HttpServletResponse response,
 			ModelMap model) throws Exception {
-	
+		
+		//2번째 파라미터 서브타이틀
+		setMenuTitle(model,"Main");
+		
 		return "main/main";
 	}
 	
