@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
 	<name>onethree</name>
-	<comment></comment>
+	<comment>onethree spring_v_5 hibernate_v_5 apache_tomcat_8 mysql_5.5</comment>
 	<projects>
 	</projects>
 	<buildSpec>
