@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.onethree.home.common.util.CommUtil;
 import com.onethree.home.money.service.MoneyService;
+import com.onethree.home.money.service.MoneyUserService;
 import com.onethree.home.money.vo.MoneyVO;
+import com.onethree.home.money.vo.MoneyUserVO;
 import com.onethree.home.user.service.UserService;
 import com.onethree.home.user.vo.UserVO;
 
@@ -39,6 +41,10 @@ public class MoneyController {
 	
 	@Autowired
 	private MoneyService moneyService;
+	
+
+	@Autowired
+	private MoneyUserService moneyUserService;
 	
 	//회비시작일 년
 	@Value( "${planMoneyStartYear}" )
@@ -72,10 +78,9 @@ public class MoneyController {
 		paramMoneyVO.setPlanFlag("Y");//회비전용만
 		
 		//회비전용 회원리스트 설정
-		UserVO userVO = new UserVO();
-		userVO.setStateNum(2);//탈퇴회원제외
-		userVO.setMoneyFlag("Y");//회비전용플래그
-		List<UserVO> userList = userService.getUserMoneyList(userVO);
+		MoneyUserVO moneyUserVO = new MoneyUserVO();
+		moneyUserVO.setDeleteFlag("N");//회비전용플래그
+		List<MoneyUserVO> moneyUserList = moneyUserService.getMoneyUserList(moneyUserVO);
 		
 		/*if(userList!=null && userList.size()>0){
 			for(UserVO dataVO:userList){
@@ -176,7 +181,7 @@ public class MoneyController {
 		
 		int startDateNum = Integer.parseInt(String.valueOf(planMoneyStartYear)+df.format(planMoneyStartMonth));
 		
-		model.addAttribute("userList",userList);
+		model.addAttribute("moneyUserList",moneyUserList);
 		model.addAttribute("userMoneyMap",userMoneyMap);
 		model.addAttribute("userTotalMoneyMap",userTotalMoneyMap);
 		model.addAttribute("expectMoney",expectMoney);

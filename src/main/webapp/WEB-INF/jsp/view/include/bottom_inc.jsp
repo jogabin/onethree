@@ -65,6 +65,7 @@
 								<ul>
 									<li><a href="/money/yearlist.do">연간회비내역</a></li>
 									<li><a href="/money/moneyout.do">기타입출금내역</a></li>
+									<li><a href="/money/money_user/list.do">회비회원관리</a></li>
 								</ul>
 							</li>
 							<%

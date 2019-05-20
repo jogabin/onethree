@@ -4,26 +4,17 @@
 
 
 <div class="table-wrapper">
-<form action="./list" method="GET" style="padding:30px 0 5px 0;">
-	<table >
-		<thead>
-			<tr>
-				<th style="width:5%;">검색</th>
-				<th>
-					<ul class="actions" style="margin:0;">
-						<li>
-							<select class="form-control" name="searchType">
-								<option value="userName">이름</option>
-								<option value="userId">아이디</option>
-							</select>
-						</li>
-						<li><input type="text" name="keyword" id="keyword" value="" placeholder="검색어" style="width:150px;"/></li>
-						<li><input type="submit" value="검색" /></li>
-					</ul>
-				</th>
-			</tr>
-		</thead>
-	</table>
+<form action="./list" method="GET" >
+	<ul class="actions" style="margin:0;">
+		<li>
+			<select class="form-control" name="searchType" style="width:100px;">
+				<option value="userName">이름</option>
+				<option value="userId">아이디</option>
+			</select>
+		</li>
+		<li><input type="text" name="keyword" id="keyword" value="" placeholder="검색어" /></li>
+		<li><input type="submit" value="검색" /></li>
+	</ul>
 </form>
 
 <table class="defTable">

@@ -9,6 +9,7 @@
 <%@ page import="com.onethree.home.common.util.CommUtil" %>
 <%@ page import="com.onethree.home.user.vo.UserVO" %>
 <%@ page import="com.onethree.home.money.vo.MoneyVO" %>
+<%@ page import="com.onethree.home.money.vo.MoneyUserVO" %>
 
 <%
 	String yearDate = CommUtil.getCurrentDate("yyyy");
@@ -97,30 +98,30 @@
 	int startDateNum = (int)request.getAttribute("startDateNum");
 	int currDate = Integer.parseInt(CommUtil.getCurrentDate("yyyyMM"));
 	long expectMoney = (long)request.getAttribute("expectMoney");
-	List<UserVO> userList = (List<UserVO>)request.getAttribute("userList");
+	List<MoneyUserVO> moneyUserList = (List<MoneyUserVO>)request.getAttribute("moneyUserList");
 	Map<String,Map<Integer,MoneyVO>> userMoneyMap = (Map<String,Map<Integer,MoneyVO>>)request.getAttribute("userMoneyMap");
 	Map<String,Long> userTotalMoneyMap = (Map<String,Long>)request.getAttribute("userTotalMoneyMap");
 	
 	int totalYearMoney = 0;
 	
 	//회비내역 리스트 출력
-	if(userList!=null && userList.size()>0){
-		for(UserVO userVO:userList){
+	if(moneyUserList!=null && moneyUserList.size()>0){
+		for(MoneyUserVO moneyUserVO:moneyUserList){
 			int userMoney = 0;
 		%><%--입금내역s --%>
 		<tr>
-			<td><%=userVO.getUserName() %></td>
+			<td><%=moneyUserVO.getMoneyUserName() %></td>
 			<%
 				//맵에 설정된 계정의 회비내역맵 설정
 				Map<Integer,MoneyVO> moneyMap = null;
-				if(userMoneyMap!=null && userMoneyMap.get(userVO.getUserUid())!=null){
-					moneyMap = (Map<Integer,MoneyVO>)userMoneyMap.get(userVO.getUserUid());
+				if(userMoneyMap!=null && userMoneyMap.get(moneyUserVO.getMoneyUserUid())!=null){
+					moneyMap = (Map<Integer,MoneyVO>)userMoneyMap.get(moneyUserVO.getMoneyUserUid());
 				}
 				
 				long userTotalMoney = 0;
 				
-				if(userTotalMoneyMap!=null && userTotalMoneyMap.get(userVO.getUserUid())!=null){
-					userTotalMoney = userTotalMoneyMap.get(userVO.getUserUid());
+				if(userTotalMoneyMap!=null && userTotalMoneyMap.get(moneyUserVO.getMoneyUserUid())!=null){
+					userTotalMoney = userTotalMoneyMap.get(moneyUserVO.getMoneyUserUid());
 				}
 				
 				//미납금 설정
@@ -154,13 +155,13 @@
 							
 							if(lastMoneyFlag && (inDate < currDate)){//미납설정
 								%>
-								<a href="#dropMenu" title="미납" class="abtn abtn-yellow" onclick="moneyPlanWrite('<%=userVO.getUserUid() %>',<%=i %>);return false;" onfocus="this.blur()" style="padding:2px 8px;margin:5px 0;">
+								<a href="#dropMenu" title="미납" class="abtn abtn-yellow" onclick="moneyPlanWrite('<%=moneyUserVO.getMoneyUserUid() %>',<%=i %>);return false;" onfocus="this.blur()" style="padding:2px 8px;margin:5px 0;">
 									미납
 								</a>
 								<%
 							}else{//보류설정
 								%>
-								<a href="#dropMenu" title="보류" class="abtn" onclick="moneyPlanWrite('<%=userVO.getUserUid() %>',<%=i %>);return false;" onfocus="this.blur()" style="padding:2px 8px;margin:5px 0;">
+								<a href="#dropMenu" title="보류" class="abtn" onclick="moneyPlanWrite('<%=moneyUserVO.getMoneyUserUid() %>',<%=i %>);return false;" onfocus="this.blur()" style="padding:2px 8px;margin:5px 0;">
 									<i class="fa"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</i>
 								</a>
 								<%

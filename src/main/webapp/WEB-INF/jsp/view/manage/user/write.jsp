@@ -126,6 +126,8 @@
 				<td>
 					<input type="password" name="userPass" id="userPass" class="inw200" placeholder="비밀번호를 입력해주세요." value="" >
 				</td>
+			</tr>
+			<tr>
 				<th scope="row"><label for="userPassChk">비밀번호 확인</label> (<span class="required">*</span>)</th>
 				<td>
 					<input type="password" name="userPassChk" id="userPassChk" class="inw200" placeholder="비밀번호를 입력해주세요." value="">

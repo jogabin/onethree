@@ -108,73 +108,62 @@
 	<input type="hidden" name="mode" value="write" />
 	<input type="hidden" name="inoutFlagStr" value="${pageVO.inoutFlag }" />
 	<input type="hidden" name="inoutCateStr1" value="${pageVO.inoutCate1 }" />
-	<table class="bbsView" summary="보기" style="margin: 0 0 60px 0;">
-		<tbody>
-			<tr>
-				<td>
-					<input type="text" name="inoutDt" id="datepicker" class="inw150" placeholder="날짜 입력" required>	
-				</td>
-				<td>
-					<select name="inoutFlag">
-                       <option value="B">출금</option>
-                       <option value="A">입금</option>
-                   </select>	
-				</td>
-				<td>
-					<select name="inoutCate1" >
-                       <option value="1">기타</option>
-                       <option value="2">회식</option>
-                       <option value="3">축하</option>
-                       <option value="4">경조사</option>
-                       <option value="5">애경사</option>
-                   </select>	
-				</td>
-				<td>
-					<input type="text" name="money" id="money" class="inw150" placeholder="금액 입력" required>	
-				</td>
-				<td>
-					<input type="text" name="memo" placeholder="내용을 입력해주세요." required>	
-				</td>
-				<td>
-					<button type="submit" class="btn btn-success">입출금입력</button>	
-				</td>
-			</tr>
-		</tbody>
-	</table>
+	<ul class="actions" style="margin:0;">
+		<li>
+			<input type="text" name="inoutDt" id="datepicker" placeholder="날짜 입력" required style="width:120px;">
+		</li>
+		<li>
+			<select name="inoutFlag">
+                 <option value="B">출금</option>
+                 <option value="A">입금</option>
+             </select>
+		</li>
+		<li>
+			<select name="inoutCate1" >
+                 <option value="1">기타</option>
+                 <option value="2">회식</option>
+                 <option value="3">축하</option>
+                 <option value="4">경조사</option>
+                 <option value="5">애경사</option>
+             </select>
+		</li>
+	</ul>
+	<ul class="actions" style="margin:0;">
+		<li>
+			<input type="text" name="money" id="money" class="inw150" placeholder="금액 입력" required>	
+		</li>
+		<li>
+			<input type="text" name="memo" placeholder="내용을 입력해주세요." required>	
+		</li>
+		<li>
+			<button type="submit" class="btn btn-success">입출금입력</button>	
+		</li>
+	</ul>
 </form>
 
 <form action="./moneyout.do" method="get">
-	<table class="defTable" style="margin:0;">
-		<thead>
-			<tr>
-				<th style="width:5%;">검색</th>
-				<th>
-					<ul class="actions" style="margin:0;">
-						<li>
-							<select  name="inoutFlag" style="color:#555;width:130px;">
-								<option value="">=입출금선택=</option>
-				                <option value="A" <c:if test="${pageVO.inoutFlag eq 'A' }">selected="selected"</c:if>>입금</option>
-				                <option value="B" <c:if test="${pageVO.inoutFlag eq 'B' }">selected="selected"</c:if>>출금</option>
-				            </select>
-						</li>
-						<li>
-							 <select name="inoutCate1" style="color:#555;width:150px;">
-				            	<option value="">=구분선택=</option>
-				                <option value="1" <c:if test="${pageVO.inoutCate1 eq '1' }">selected="selected"</c:if>>기타</option>
-				                <option value="2" <c:if test="${pageVO.inoutCate1 eq '2' }">selected="selected"</c:if>>회식</option>
-				                <option value="3" <c:if test="${pageVO.inoutCate1 eq '3' }">selected="selected"</c:if>>축하</option>
-				                <option value="4" <c:if test="${pageVO.inoutCate1 eq '4' }">selected="selected"</c:if>>경조사</option>
-				                <option value="5" <c:if test="${pageVO.inoutCate1 eq '5' }">selected="selected"</c:if>>애경사</option>
-				            </select>
-						</li>
-						<li>
-							<button type="submit" class="btn btn-warning">검색</button>
-						</li>
-					</ul>
-				</th>
-			</tr>
-		</thead>
-	</table>
+	<ul class="actions" style="margin:0;">
+		<li>
+			<select  name="inoutFlag" style="color:#555;">
+				<option value="">입출금선택</option>
+                <option value="A" <c:if test="${pageVO.inoutFlag eq 'A' }">selected="selected"</c:if>>입금</option>
+                <option value="B" <c:if test="${pageVO.inoutFlag eq 'B' }">selected="selected"</c:if>>출금</option>
+            </select>
+		</li>
+		<li>
+			 <select name="inoutCate1" style="color:#555;">
+            	<option value="">구분선택</option>
+                <option value="1" <c:if test="${pageVO.inoutCate1 eq '1' }">selected="selected"</c:if>>기타</option>
+                <option value="2" <c:if test="${pageVO.inoutCate1 eq '2' }">selected="selected"</c:if>>회식</option>
+                <option value="3" <c:if test="${pageVO.inoutCate1 eq '3' }">selected="selected"</c:if>>축하</option>
+                <option value="4" <c:if test="${pageVO.inoutCate1 eq '4' }">selected="selected"</c:if>>경조사</option>
+                <option value="5" <c:if test="${pageVO.inoutCate1 eq '5' }">selected="selected"</c:if>>애경사</option>
+            </select>
+		</li>
+		<li>
+			<button type="submit" class="btn btn-warning">검색</button>
+		</li>
+	</ul>
 </form>
 
 <font class="right_font">회비 잔액:  <fmt:formatNumber value="${totalInMoney }" pattern="#,###" />원</font>
