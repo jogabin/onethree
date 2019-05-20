@@ -38,4 +38,11 @@ public interface UserService {
 	 * */
 	public void updateUser(UserVO userVO);
 	
+	/**
+	 * 아이디 패스워드 조회
+	 * 파라미터*
+	 * 아이디,패스워드
+	 * */
+	public UserVO getLoginUser(UserVO dataVO);
+	
 }

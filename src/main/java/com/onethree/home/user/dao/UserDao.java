@@ -50,7 +50,7 @@ public class UserDao extends HibernateDaoSupport{
 			if((dataVO.getSearchType() != null && !"".equals(dataVO.getSearchType()))
 				&& 	dataVO.getKeyword() != null && !"".equals(dataVO.getKeyword()))
 			{
-				Predicate p1 = builder.like(root.get(dataVO.getSearchType()), dataVO.getKeyword());			
+				Predicate p1 = builder.like(root.get(dataVO.getSearchType()), "%"+dataVO.getKeyword()+"%");	
 				criteria = builder.and(criteria, p1);
 			}			
 			
@@ -211,5 +211,51 @@ public class UserDao extends HibernateDaoSupport{
 	public void updateUser(UserVO userVO)
 	{
 		getHibernateTemplate().update(userVO);
+	}
+	
+	/**
+	 * 아이디 패스워드 조회
+	 * 파라미터*
+	 * 아이디,패스워드
+	 * */
+	@SuppressWarnings("resource")
+	public UserVO getLoginUser(UserVO dataVO) {
+		Session session = null;
+		
+		UserVO result = null;
+		try{			
+			try {
+			    session = super.getSessionFactory().getCurrentSession();
+			} catch (HibernateException e) {
+			    session = super.getSessionFactory().openSession();
+			}
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+
+			CriteriaQuery<UserVO> criteriaQuery = builder.createQuery(UserVO.class);
+			Root<UserVO> root = criteriaQuery.from(UserVO.class);
+			
+			Predicate criteria = builder.conjunction();
+			//검색값 추가
+			Predicate p1 = builder.equal(root.get("userId"), dataVO.getUserId());
+			criteria = builder.and(criteria, p1);	
+			Predicate p2 = builder.equal(root.get("userPass"), dataVO.getUserPass());
+			criteria = builder.and(criteria, p2);	
+			
+			criteriaQuery.where(criteria);
+			criteriaQuery.select(root).distinct(true);
+			
+			try {
+				result = session.createQuery(criteriaQuery).getSingleResult();
+		    } catch (NoResultException nre) {
+		        result = null;
+		    }
+			
+		}catch(HibernateException e)
+		{
+		}finally
+		{
+			if(session != null && session.isOpen()) session.close();
+		}
+		return result;
 	}
 }

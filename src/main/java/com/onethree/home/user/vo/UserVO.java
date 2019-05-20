@@ -47,9 +47,10 @@ public class UserVO extends PageVO implements Serializable{
 	
 	/**
 	 * 권한여부
+	 * 1:준회원 2:정회원 9:관리자
 	 * */
-	@Column(name="USER_AUTHOR", length=5)
-	private String userAuthor;
+	@Column(name="USER_AUTHOR")
+	private int userAuthor;
 	
 	/**
 	 * 상태
@@ -110,11 +111,11 @@ public class UserVO extends PageVO implements Serializable{
 		this.userName = userName;
 	}
 
-	public String getUserAuthor() {
+	public int getUserAuthor() {
 		return userAuthor;
 	}
 
-	public void setUserAuthor(String userAuthor) {
+	public void setUserAuthor(int userAuthor) {
 		this.userAuthor = userAuthor;
 	}
 

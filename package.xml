@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project  name="onethree.1.1" default="makeJar" basedir=".">
+	 <property name="jar.dir" value="./target/jar" />
+	 <property name="build.dir" value="./target" />
+    
+
+    <target name="makeJar">
+
+     <!-- jar 디렉토리 생성 -->
+     <mkdir dir="${jar.dir}"/>
+
+     <!-- jar 파일 생성 -->
+     <jar destfile="${jar.dir}/onethree.1.1.jar">
+         <fileset dir="${build.dir}/classes">
+         	<!-- jar 에서 제외할 파일 및 폴더 -->
+         	<exclude name="property/*"/>
+         	<exclude name="spring/*"/>
+     		<exclude name="*.properties"/>
+     		<exclude name="*.xml"/>
+	  </fileset>
+     </jar>
+    </target>
+ </project>

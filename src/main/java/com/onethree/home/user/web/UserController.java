@@ -35,7 +35,7 @@ public class UserController {
 		model.addAttribute("CONTENT_NUMB", contentNumb);
 	}
 	
-	@RequestMapping(value="/user/list")
+	@RequestMapping(value="/manage/user/list")
 	public String list(HttpServletRequest request,HttpServletResponse response,ModelMap model
 			,@ModelAttribute("UserVO") UserVO paramUserVO,@ModelAttribute("PageVO") PageVO pageVO) throws Exception 
 	{
@@ -44,7 +44,7 @@ public class UserController {
 		
 		List<UserVO> userList = userService.getUserList(paramUserVO);
 		
-		PagingUtil paging = new PagingUtil(totalCount,pageVO.getRowCount(),pageVO.getPage(),pageVO.getPageBlockCount(),"/user/list",pageVO.getSubParamStr());
+		PagingUtil paging = new PagingUtil(totalCount,pageVO.getRowCount(),pageVO.getPage(),pageVO.getPageBlockCount(),"/manage/user/list",pageVO.getSubParamStr());
 		pageVO.setTotalCount(totalCount);
 		
 		model.addAttribute("userList", userList);
@@ -54,10 +54,10 @@ public class UserController {
 		//2번째 파라미터 서브타이틀
 		setMenuTitle(model,"회원목록");
 		
-		return "/user/list";
+		return "/manage/user/list";
 	}
 	
-	@RequestMapping(value="/user/write")
+	@RequestMapping(value="/manage/user/write")
 	public String write(HttpServletRequest request,HttpServletResponse response,ModelMap model
 			,@ModelAttribute("PageVO") PageVO pageVO) throws Exception 
 	{
@@ -71,10 +71,10 @@ public class UserController {
 		//2번째 파라미터 서브타이틀
 		setMenuTitle(model,"회원등록");
 		
-		return "/user/write";
+		return "/manage/user/write";
 	}
 	
-	@RequestMapping(value="/user/update")
+	@RequestMapping(value="/manage/user/update")
 	public String update(HttpServletRequest request,HttpServletResponse response,ModelMap model
 			,@ModelAttribute("UserVO") UserVO paramUserVO,@ModelAttribute("PageVO") PageVO pageVO) throws Exception 
 	{
@@ -94,13 +94,13 @@ public class UserController {
 		//2번째 파라미터 서브타이틀
 		setMenuTitle(model,"회원수정");
 		
-		return "/user/write";
+		return "/manage/user/write";
 	}
 	
 	/**
 	 * 계정관련 action
 	 * */
-	@RequestMapping(value="/user/action")
+	@RequestMapping(value="/manage/user/action")
 	public String action(HttpServletRequest request,HttpServletResponse response,
 			@ModelAttribute("UserVO") UserVO paramUserVO,ModelMap model) throws Exception {
 		
@@ -131,7 +131,7 @@ public class UserController {
 			
 			if(userUid!=null && !"".equals(userUid)){
 				model.addAttribute("RESULT_CODE", "001");//이전페이지로
-				model.addAttribute("RESULT_URL", "/user/list");//성공후 이동페이지
+				model.addAttribute("RESULT_URL", "/manage/user/list");//성공후 이동페이지
 			}else{
 				model.addAttribute("RESULT_CODE", "901");//이전페이지로
 				model.addAttribute("RESULT_MSG", "등록에 실패하였습니다.");//이전페이지로
@@ -164,7 +164,7 @@ public class UserController {
 			userService.updateUser(oriUserVO);
 			
 			model.addAttribute("RESULT_CODE", "001");//이전페이지로
-			model.addAttribute("RESULT_URL", "/user/update?userUid="+oriUserVO.getUserUid()+"&"+paramUserVO.getParamStr());//성공후 이동페이지
+			model.addAttribute("RESULT_URL", "/manage/user/update?userUid="+oriUserVO.getUserUid()+"&"+paramUserVO.getParamStr());//성공후 이동페이지
 			
 		}else if("delete".equals(mode)){
 			
