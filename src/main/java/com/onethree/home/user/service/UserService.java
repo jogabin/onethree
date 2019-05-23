@@ -39,10 +39,20 @@ public interface UserService {
 	public void updateUser(UserVO userVO);
 	
 	/**
+	 * 회원삭제
+	 * */
+	public void deleteUser(UserVO userVO);
+	
+	/**
 	 * 아이디 패스워드 조회
 	 * 파라미터*
 	 * 아이디,패스워드
 	 * */
 	public UserVO getLoginUser(UserVO dataVO);
+	
+	/**
+	 * 아이디로 회원정보 찾기
+	 * */
+	public long getLoginUserIdCount(UserVO dataVO);
 	
 }

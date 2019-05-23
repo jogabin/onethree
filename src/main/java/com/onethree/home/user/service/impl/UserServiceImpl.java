@@ -61,11 +61,27 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	/**
+	 * 회원삭제
+	 * */
+	@Transactional
+	public void deleteUser(UserVO userVO)
+	{
+		userDao.deleteUser(userVO);
+	}
+	
+	/**
 	 * 아이디 패스워드 조회
 	 * 파라미터*
 	 * 아이디,패스워드
 	 * */
 	public UserVO getLoginUser(UserVO dataVO) {
 		return userDao.getLoginUser(dataVO);
+	}
+	
+	/**
+	 * 아이디로 회원정보 찾기
+	 * */
+	public long getLoginUserIdCount(UserVO dataVO) {
+		return userDao.getLoginUserIdCount(dataVO);
 	}
 }

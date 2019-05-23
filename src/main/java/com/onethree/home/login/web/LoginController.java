@@ -107,21 +107,34 @@ public class LoginController {
 			
 			UserVO loginUserVO = userService.getLoginUser(loginUserVOTemp);
 			if(loginUserVO!=null && loginUserVO.getUserId()!=null && !"".equals(loginUserVO.getUserId())) {
-				//로그인정보 세션설정 처리
-				HttpSession session  = request.getSession(false);
-				if(session != null)
-				{
-					session.invalidate();
+				if(loginUserVO.getStateNum()==0) {
+					model.addAttribute("RESULT_CODE", "901");//이전페이지로
+					model.addAttribute("RESULT_MSG", "가입승인이 처리되지 않았습니다.");
+				}else if(loginUserVO.getStateNum()==1) {
+					//로그인정보 세션설정 처리
+					HttpSession session  = request.getSession(false);
+					if(session != null)
+					{
+						session.invalidate();
+					}
+					loginUserVO.setUserPass("");//비밀번호는 초기화
+					
+					session  = request.getSession(true);
+					session.setAttribute("loginUserVO", loginUserVO);
+					
+					log.info(loginUserVO.getUserId()+" ========================== USER LOGIN SUCCESS!!!!!!!!!!!!!!!!!!!!");
+					
+					model.addAttribute("RESULT_CODE", "010");//로그인성공
+					model.addAttribute("RESULT_URL", returnUrl);//성공후 이동페이지
+				}else if(loginUserVO.getStateNum()==2) {
+					model.addAttribute("RESULT_CODE", "901");//이전페이지로
+					model.addAttribute("RESULT_MSG", "탈퇴처리된 계정입니다.");
+				}else {
+					model.addAttribute("RESULT_CODE", "901");//이전페이지로
+					model.addAttribute("RESULT_MSG", "해당 계정정보는 로그인 불가입니다.");
 				}
-				loginUserVO.setUserPass("");//비밀번호는 초기화
 				
-				session  = request.getSession(true);
-				session.setAttribute("loginUserVO", loginUserVO);
 				
-				log.info(loginUserVO.getUserId()+" ========================== USER LOGIN SUCCESS!!!!!!!!!!!!!!!!!!!!");
-				
-				model.addAttribute("RESULT_CODE", "010");//로그인성공
-				model.addAttribute("RESULT_URL", returnUrl);//성공후 이동페이지
 			}else {
 				model.addAttribute("RESULT_CODE", "901");//이전페이지로
 				model.addAttribute("RESULT_MSG", "아이디와 비밀번호 정보를 정확히 입력해주세요.");

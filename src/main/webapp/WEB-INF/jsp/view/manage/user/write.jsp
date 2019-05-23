@@ -95,6 +95,14 @@
 		}*/
 		return true;
 	}
+	
+	function goDelete(){
+		var form = document.writeForm;
+		if(confirm("삭제하시겠습니까?")){
+			form.mode.value = "delete";
+			form.submit();
+		}
+	}
 </script>
 
 <form:form modelAttribute="userVO" name="writeForm" action="./action.do" method="post">
@@ -167,6 +175,9 @@
 	<div class="btn_area bbs_btn">
 		<button type="button" class="btn primary" onclick="formCheck();">등록</button>
 		<button type="button" class="btn" onclick="location.href='./list.do?${pageVO.paramStr}'" >취소</button>
+		<c:if test="${mode eq 'update' }">
+			<button type="button" class="btn" onclick="goDelete();">삭제</button>
+		</c:if>
 	</div>
 </form:form>
 

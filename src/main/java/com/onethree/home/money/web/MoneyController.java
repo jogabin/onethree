@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.annotations.common.util.impl.Log;
@@ -212,6 +213,20 @@ public class MoneyController {
 			return viewPage;
 		}
 		
+		HttpSession session  = request.getSession(true);
+		UserVO loginUserVO = (UserVO)session.getAttribute("loginUserVO");
+		if(loginUserVO==null || "".equals(loginUserVO.getUserId())){
+			model.addAttribute("RESULT_CODE", "901");//이전페이지로
+			model.addAttribute("RESULT_MSG", "잘못된 접근입니다.");//이전페이지로
+			return viewPage;
+		}else {
+			if(loginUserVO.getUserAuthor()<9) {//관리자만 가능
+				model.addAttribute("RESULT_CODE", "901");//이전페이지로
+				model.addAttribute("RESULT_MSG", "권한이 없습니다.");//이전페이지로
+				return viewPage;
+			}
+		}
+		
 		if("write".equals(mode)){//=========================================================등록
 			if(paramMoneyVO==null || (
 					"".equals(paramMoneyVO.getUserUid())
@@ -231,7 +246,7 @@ public class MoneyController {
 			String inoutDt = String.valueOf(paramMoneyVO.getYearDate())+"-"+df.format(paramMoneyVO.getMonthDate())+"-01";
 			paramMoneyVO.setInoutDt(inoutDt);
 			paramMoneyVO.setRegisterDt(new Date());
-			paramMoneyVO.setRegisterId("admin");
+			paramMoneyVO.setRegisterId(loginUserVO.getUserId());
 			
 			String moneyUid = moneyService.moneyWrite(paramMoneyVO); 
 			
@@ -327,6 +342,20 @@ public class MoneyController {
 			inoutCateStr1 = request.getParameter("inoutCateStr1");
 		}
 		
+		HttpSession session  = request.getSession(true);
+		UserVO loginUserVO = (UserVO)session.getAttribute("loginUserVO");
+		if(loginUserVO==null || "".equals(loginUserVO.getUserId())){
+			model.addAttribute("RESULT_CODE", "901");//이전페이지로
+			model.addAttribute("RESULT_MSG", "잘못된 접근입니다.");//이전페이지로
+			return viewPage;
+		}else {
+			if(loginUserVO.getUserAuthor()<9) {//관리자만 가능
+				model.addAttribute("RESULT_CODE", "901");//이전페이지로
+				model.addAttribute("RESULT_MSG", "권한이 없습니다.");//이전페이지로
+				return viewPage;
+			}
+		}
+		
 		if("write".equals(mode)){//=========================================================등록
 			if(paramMoneyVO==null ||"".equals(paramMoneyVO.getInoutDt())){
 				model.addAttribute("RESULT_CODE", "901");//이전페이지로
@@ -336,7 +365,7 @@ public class MoneyController {
 			
 			paramMoneyVO.setPlanFlag("N");
 			paramMoneyVO.setRegisterDt(new Date());
-			paramMoneyVO.setRegisterId("admin");
+			paramMoneyVO.setRegisterId(loginUserVO.getUserId());
 			
 			String moneyUid = moneyService.moneyWrite(paramMoneyVO); 
 			
@@ -357,7 +386,7 @@ public class MoneyController {
 			
 			paramMoneyVO.setPlanFlag("N");
 			paramMoneyVO.setUpdateDt(new Date());
-			paramMoneyVO.setUpdateId("admin");
+			paramMoneyVO.setUpdateId(loginUserVO.getUserId());
 			
 			moneyService.moneyUpdate(paramMoneyVO); 
 			
