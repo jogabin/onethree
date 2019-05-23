@@ -308,4 +308,46 @@ public class UserDao extends HibernateDaoSupport{
 		}
 		return count;
 	}
+	
+	/**
+	 * 이메일로 회원정보 찾기
+	 * */
+	@SuppressWarnings("resource")
+	public long getUserEmailCount(UserVO dataVO) {
+		long count = 0;
+		Session session = null;
+		try{			
+			try {
+			    session = super.getSessionFactory().getCurrentSession();
+			} catch (HibernateException e) {
+			    session = super.getSessionFactory().openSession();
+			}
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+			CriteriaQuery<Long> countQuery = builder.createQuery(Long.class);
+			Root<UserVO> root = countQuery.from(UserVO.class);
+			
+			Predicate criteria = builder.conjunction();
+			//검색값 추가
+			Predicate p1 = builder.equal(root.get("userEmail"), dataVO.getUserEmail());
+			criteria = builder.and(criteria, p1);			
+			
+			countQuery.where(criteria);
+			
+			countQuery.select(builder.count(root));
+			
+			try{
+				count = session.createQuery(countQuery).getSingleResult();
+			}catch (NoResultException nre){
+				//Ignore this because as per your logic this is ok!
+			}
+			
+		}catch(HibernateException e)
+		{
+			throw e;
+		}finally
+		{
+			if(session != null && session.isOpen()) session.close();
+		}
+		return count;
+	}
 }

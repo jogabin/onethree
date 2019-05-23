@@ -84,4 +84,11 @@ public class UserServiceImpl implements UserService{
 	public long getLoginUserIdCount(UserVO dataVO) {
 		return userDao.getLoginUserIdCount(dataVO);
 	}
+	
+	/**
+	 * 이메일로 회원정보 찾기
+	 * */
+	public long getUserEmailCount(UserVO dataVO) {
+		return userDao.getUserEmailCount(dataVO);
+	}
 }

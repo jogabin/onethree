@@ -40,7 +40,7 @@
 				<div class="col-12">
 					<ul class="actions">
 						<li><input type="submit" value="로그인" class="primary" /></li>
-						<li><input type="reset" value="회원가입" onclick="location.href='/user/join.do';"/></li>
+						<li><input type="reset" value="회원가입" onclick="location.href='/user/join';"/></li>
 					</ul>
 				</div>
 			</div>

@@ -118,6 +118,33 @@ public class UserController {
 		return "/manage/user/write";
 	}
 	
+	@RequestMapping(value="/user/update")
+	public String userUpdate(HttpServletRequest request,HttpServletResponse response,ModelMap model) throws Exception 
+	{
+		HttpSession session  = request.getSession(true);
+		UserVO loginUserVO = (UserVO)session.getAttribute("loginUserVO");
+		if(loginUserVO==null || "".equals(loginUserVO.getUserId())){
+			model.addAttribute("RESULT_CODE", "901");//이전페이지로
+			model.addAttribute("RESULT_MSG", "로그인 사용자만 확인가능합니다.");//이전페이지로
+			return "common/actionResult";
+		}
+		
+		UserVO userVO = userService.getUserVO(loginUserVO);
+		if(userVO==null || "".equals(userVO.getUserId())){
+			model.addAttribute("RESULT_CODE", "901");//이전페이지로
+			model.addAttribute("RESULT_MSG", "조회된 회원정보가 없습니다.");//이전페이지로
+			return "common/actionResult";
+		}
+		
+		model.addAttribute("mode", "update");
+		model.addAttribute("userVO", userVO);
+		
+		//2번째 파라미터 서브타이틀
+		setMenuTitle(model,"회원정보수정");
+		
+		return "/user/join";
+	}
+	
 	/**
 	 * 계정관련 action
 	 * */
@@ -185,6 +212,7 @@ public class UserController {
 			oriUserVO.setUserName(paramUserVO.getUserName());
 			oriUserVO.setUserAuthor(paramUserVO.getUserAuthor());
 			oriUserVO.setUserId(paramUserVO.getUserId());
+			oriUserVO.setUserEmail(paramUserVO.getUserEmail());
 			oriUserVO.setMoneyFlag(paramUserVO.getMoneyFlag());
 			oriUserVO.setUpdateDt(new Date());
 			oriUserVO.setUpdateId(loginUserVO.getUserId());
@@ -282,7 +310,31 @@ public class UserController {
 			}
 			
 		}else if("update".equals(mode)){//=========================================================수정
+			if(paramUserVO==null || "".equals(paramUserVO.getUserUid())){
+				model.addAttribute("RESULT_CODE", "901");//이전페이지로
+				model.addAttribute("RESULT_MSG", "잘못된 접근입니다.");//이전페이지로
+				return "common/actionResult";
+			}
 			
+			UserVO oriUserVO = userService.getUserVO(paramUserVO);
+			
+			oriUserVO.setUserName(paramUserVO.getUserName());
+			oriUserVO.setUserEmail(paramUserVO.getUserEmail());
+			oriUserVO.setUpdateDt(new Date());
+			oriUserVO.setUpdateId(oriUserVO.getUserId());
+			
+			//비밀번호설정
+			if(paramUserVO!=null && !"".equals(paramUserVO.getUserPass())){
+				String userPass = paramUserVO.getUserPass();
+				userPass = CommUtil.getEncSHA256(userPass); 
+				oriUserVO.setUserPass(userPass);
+			}
+			
+			userService.updateUser(oriUserVO);
+			
+			model.addAttribute("RESULT_CODE", "003");//성공후 메시지 출력
+			model.addAttribute("RESULT_MSG", "회원정보 수정처리되었습니다.");
+			model.addAttribute("RESULT_URL", "/");//성공후 이동페이지
 			
 		}else if("delete".equals(mode)){
 			
@@ -310,6 +362,30 @@ public class UserController {
 		UserVO userVO = new UserVO();
 		userVO.setUserId(loginId);
 		cnt = userService.getLoginUserIdCount(userVO);
+		
+		JSONObject jsonObj = new JSONObject();
+		jsonObj.put("cnt", cnt);
+		
+		model.addAttribute("jsonObj", jsonObj);
+		
+		return "common/json";
+	}
+	
+	/**
+	 * 이메일 카운트 조회 json반환
+	 * */
+	@RequestMapping(value="/user/userEmailCheck")
+	public String userEmailCheck(HttpServletRequest request,HttpServletResponse response,ModelMap model) throws Exception {
+		
+		String userEmail = "";
+		long cnt = 0;
+		if(request.getParameter("userEmail")!=null && !"".equals(request.getParameter("userEmail"))){
+			userEmail = request.getParameter("userEmail");
+		}
+				
+		UserVO userVO = new UserVO();
+		userVO.setUserEmail(userEmail);
+		cnt = userService.getUserEmailCount(userVO);
 		
 		JSONObject jsonObj = new JSONObject();
 		jsonObj.put("cnt", cnt);

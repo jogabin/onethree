@@ -19,7 +19,7 @@
 
 <div class="row gtr-150">
 	<div class="col-6 col-12-medium">
-	<form:form modelAttribute="moneyUserVO" name="writeForm" action="./action.do" method="post">
+	<form:form modelAttribute="moneyUserVO" name="writeForm" action="./action" method="post">
 		<input type="hidden" name="mode" id="mode"  value="${mode }">
 		<input type="hidden" name="page" id="page"  value="${pageVO.page }">
 		<input type="hidden" name="searchType" id="searchType"  value="${pageVO.searchType }">
@@ -41,7 +41,7 @@
 		</table>
 		<div class="btn_area bbs_btn">
 			<button type="button" class="btn primary" onclick="formCheck();">등록</button>
-			<button type="button" class="btn" onclick="location.href='./list.do?${pageVO.paramStr}'" >취소</button>
+			<button type="button" class="btn" onclick="location.href='./list?${pageVO.paramStr}'" >취소</button>
 		</div>
 	</form:form>
 	</div>

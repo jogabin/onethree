@@ -55,4 +55,10 @@ public interface UserService {
 	 * */
 	public long getLoginUserIdCount(UserVO dataVO);
 	
+	
+	/**
+	 * 이메일로 회원정보 찾기
+	 * */
+	public long getUserEmailCount(UserVO dataVO);
+	
 }

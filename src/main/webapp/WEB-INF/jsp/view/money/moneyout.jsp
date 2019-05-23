@@ -100,11 +100,11 @@
 
 
 <div class="col-6" style="padding-bottom:15px;">
-	<a href="./yearlist.do" class="abtn abtn-blue">연간회비내역</a>
+	<a href="./yearlist" class="abtn abtn-blue">연간회비내역</a>
 </div>
 
 <h4>입출금입력</h4>
-<form name="outForm" id="outForm" method="post" action="./inoutaction.do">
+<form name="outForm" id="outForm" method="post" action="./inoutaction">
 	<input type="hidden" name="mode" value="write" />
 	<input type="hidden" name="inoutFlagStr" value="${pageVO.inoutFlag }" />
 	<input type="hidden" name="inoutCateStr1" value="${pageVO.inoutCate1 }" />
@@ -141,7 +141,7 @@
 	</ul>
 </form>
 
-<form action="./moneyout.do" method="get">
+<form action="./moneyout" method="get">
 	<ul class="actions" style="margin:0;">
 		<li>
 			<select  name="inoutFlag" style="color:#555;">
@@ -229,7 +229,7 @@
 				</td>		
 			</tr>	
 			<div class="modalDialog" id="modalDiv_${row.moneyUid }">
-				<form action="./inoutaction.do" method="post" id="OutUptForm-${row.moneyUid }">
+				<form action="./inoutaction" method="post" id="OutUptForm-${row.moneyUid }">
 					<input type="hidden" name="mode" value="update">		
 					<input type="hidden" name="moneyUid" value="${row.moneyUid }">
 					<input type="hidden" name="inoutFlagStr" value="${pageVO.inoutFlag }" />
@@ -252,7 +252,7 @@
 		            <input type="submit" value="수정" />	
 		            <button class="btn btn-success" type="button" onclick="goOutDelete('${row.moneyUid }');return false;">삭제</button>	
 		         </form>
-		         <form action="./inoutaction.do" method="post" id="OutDelForm-${row.moneyUid }" >
+		         <form action="./inoutaction" method="post" id="OutDelForm-${row.moneyUid }" >
 					<input type="hidden" name="mode" value="delete"  />
 					<input type="hidden" name="moneyUid" value="${row.moneyUid }"/>
 					<input type="hidden" name="inoutFlagStr" value="${pageVO.inoutFlag }" />

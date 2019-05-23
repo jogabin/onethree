@@ -10,6 +10,11 @@
 			form.userId.focus();
 			return false;
 		}
+		if (form.userIdConfirm.value==="N") { 
+			alert("아이디 중복 확인을 해 주세요."); 
+			form.userIdConfirm.focus(); 
+			return false; 
+		}
 		if(form.userName.value===""){
 			alert("이름을 입력해주세요.");
 			form.userName.focus();
@@ -61,39 +66,39 @@
 			{
 				return false;
 			}
-		}
-		
+		}		
 		</c:if>
 		
+		if(form.userEmail.value===""){
+			alert("이메일을 입력해주세요.");
+			form.userEmail.focus();
+			return false;
+		}
+		if (form.userEmailConfirm.value==="N") { 
+			alert("이메일 중복 확인을 해 주세요."); 
+			form.userEmailConfirm.focus(); 
+			return false; 
+		}
+		
+		if (form.userEmail.value!="" && !isEmail(form.userEmail.value)){
+			alert("이메일 주소가 잘못되었습니다.");
+			form.userEmail.focus();
+			return false;
+		}
 		
 		if(confirm("회원정보를 등록하시겠습니까?")){
 			form.submit();
 		}
 	}
 	
-	//비밀번호 체크
-	function isPassword(str){
-		var pw = str;
-		var num = pw.search(/[0-9]/g);
-		var eng = pw.search(/[a-z]/ig);
-		var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
-
-		if(pw.length < 4 || pw.length > 12){
-			alert("비밀번호는 4자리 ~ 12자리 이내로 입력해주세요.");
-			return false;
-		}
-		
-		var blank_pattern = /[\s]/g;
-		if(blank_pattern.test(pw)){
-			alert("비밀번호는  공백은 사용할 수 없습니다.");
-			return false;
-		}
-		
-		/*if(num < 0 || eng < 0 || spe < 0 ){
-			alert("비밀번호는 영문,숫자, 특수문자를 혼합하여 입력해주세요.");
-			return false;
-		}*/
-		return true;
+	function userIdCheckForm(){
+		var loginId = $("#userId").val();
+		userIdCheck(loginId);
+	}
+	
+	function userEmailCheckForm(){
+		var userEmail = $("#userEmail").val();
+		userEmailCheck(userEmail);
 	}
 	
 	function goDelete(){
@@ -105,7 +110,7 @@
 	}
 </script>
 
-<form:form modelAttribute="userVO" name="writeForm" action="./action.do" method="post">
+<form:form modelAttribute="userVO" name="writeForm" action="./action" method="post">
 	<input type="hidden" name="mode" id="mode"  value="${mode }">
 	<input type="hidden" name="page" id="page"  value="${pageVO.page }">
 	<input type="hidden" name="searchType" id="searchType"  value="${pageVO.searchType }">
@@ -119,8 +124,18 @@
 		<tbody>
 			<tr>
 				<th scope="row"><label for="userId">아이디</label> (<span class="required">*</span>)</th>
-				<td colspan="3">
-					<form:input path="userId" id="userId" class="inw150" />
+				<td>
+					<form:input path="userId" id="userId" class="inw150" onkeyup="userIdConfirmInit();" style="float:left"/>
+					<a class="button primary" href="#" onclick="userIdCheckForm();" style="float:left;margin-left:5px;">아이디 중복확인</a>
+					<input type="hidden" id="userIdConfirm" name="userIdConfirm" value="" />
+				</td>
+			</tr>
+			<tr>
+				<th scope="row"><label for="userEmail">이메일</label> (<span class="required">*</span>)</th>
+				<td>
+					<form:input path="userEmail" id="userEmail" onkeyup="userEmailConfirmInit();"/>
+					<a class="button primary" href="#" onclick="userEmailCheckForm();" style="float:left;margin-top:5px;">이메일 중복확인</a>
+					<input type="hidden" id="userEmailConfirm" name="userEmailConfirm" value="" />
 				</td>
 			</tr>
 			<tr>
@@ -174,7 +189,7 @@
 	</table>
 	<div class="btn_area bbs_btn">
 		<button type="button" class="btn primary" onclick="formCheck();">등록</button>
-		<button type="button" class="btn" onclick="location.href='./list.do?${pageVO.paramStr}'" >취소</button>
+		<button type="button" class="btn" onclick="location.href='./list?${pageVO.paramStr}'" >취소</button>
 		<c:if test="${mode eq 'update' }">
 			<button type="button" class="btn" onclick="goDelete();">삭제</button>
 		</c:if>

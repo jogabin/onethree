@@ -45,6 +45,10 @@ public class UserVO extends PageVO implements Serializable{
 	@Column(name="USER_NAME", length=100)
 	private String userName;
 	
+
+	@Column(name="USER_EMAIL", length=255)
+	private String userEmail;
+	
 	/**
 	 * 권한여부
 	 * 1:준회원 2:정회원 9:관리자
@@ -165,6 +169,14 @@ public class UserVO extends PageVO implements Serializable{
 
 	public void setMoneyFlag(String moneyFlag) {
 		this.moneyFlag = moneyFlag;
+	}
+
+	public String getUserEmail() {
+		return userEmail;
+	}
+
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
 	
 	

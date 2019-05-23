@@ -25,7 +25,7 @@
 					<%
 					if(loginUserVOBot!=null){
 						%>
-						<%=loginUserVOBot.getUserName() %>님 환영합니다.
+						<%=loginUserVOBot.getUserName() %>님 환영합니다. <a href="/user/update" class="button primary small" style="margin-left:5px;">정보수정</a>
 						<%
 					}
 					%>
@@ -47,7 +47,7 @@
 									<%
 								}else{
 									%>
-									<a href="/login.do?returnUrl=<%=URLEncoder.encode(loginReturnUrl,"UTF-8")%>">로그인</a>
+									<a href="/login?returnUrl=<%=URLEncoder.encode(loginReturnUrl,"UTF-8")%>">로그인</a>
 									<%	
 								}
 							%>
@@ -63,9 +63,9 @@
 							<li>
 								<span class="opener">하나둘셋</span>
 								<ul>
-									<li><a href="/money/yearlist.do">연간회비내역</a></li>
-									<li><a href="/money/moneyout.do">기타입출금내역</a></li>
-									<li><a href="/money/money_user/list.do">회비회원관리</a></li>
+									<li><a href="/money/yearlist">연간회비내역</a></li>
+									<li><a href="/money/moneyout">기타입출금내역</a></li>
+									<li><a href="/money/money_user/list">회비회원관리</a></li>
 								</ul>
 							</li>
 							<%
@@ -75,7 +75,7 @@
 							<li>
 								<span class="opener">관리자</span>
 								<ul>
-									<li><a href="/manage/user/list.do">회원관리</a></li>
+									<li><a href="/manage/user/list">회원관리</a></li>
 								</ul>
 							</li>
 							<%

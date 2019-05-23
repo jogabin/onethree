@@ -252,7 +252,7 @@ public class MoneyController {
 			
 			if(moneyUid!=null && !"".equals(moneyUid)){
 				model.addAttribute("RESULT_CODE", "006");//이전페이지로
-				model.addAttribute("RESULT_URL", "/money/yearlist.do?yearDate="+paramMoneyVO.getYearDate());//성공후 이동페이지
+				model.addAttribute("RESULT_URL", "/money/yearlist?yearDate="+paramMoneyVO.getYearDate());//성공후 이동페이지
 			}else{
 				model.addAttribute("RESULT_CODE", "901");//이전페이지로
 				model.addAttribute("RESULT_MSG", "등록에 실패하였습니다.");//이전페이지로
@@ -270,7 +270,7 @@ public class MoneyController {
 			int result = moneyService.deleteMoneyInfo(paramMoneyVO);
 			if(result>0){
 				model.addAttribute("RESULT_CODE", "006");//이전페이지로
-				model.addAttribute("RESULT_URL", "/money/yearlist.do?yearDate="+paramMoneyVO.getYearDate());//성공후 이동페이지
+				model.addAttribute("RESULT_URL", "/money/yearlist?yearDate="+paramMoneyVO.getYearDate());//성공후 이동페이지
 			}else{
 				model.addAttribute("RESULT_CODE", "901");//이전페이지로
 				model.addAttribute("RESULT_MSG", "등록에 실패하였습니다.");//이전페이지로
@@ -371,7 +371,7 @@ public class MoneyController {
 			
 			if(moneyUid!=null && !"".equals(moneyUid)){
 				model.addAttribute("RESULT_CODE", "001");
-				model.addAttribute("RESULT_URL", "/money/moneyout.do?inoutFlag="+inoutFlagStr+"&inoutCate1="+inoutCateStr1);//성공후 이동페이지
+				model.addAttribute("RESULT_URL", "/money/moneyout?inoutFlag="+inoutFlagStr+"&inoutCate1="+inoutCateStr1);//성공후 이동페이지
 			}else{
 				model.addAttribute("RESULT_CODE", "901");//이전페이지로
 				model.addAttribute("RESULT_MSG", "등록에 실패하였습니다.");//이전페이지로
@@ -391,7 +391,7 @@ public class MoneyController {
 			moneyService.moneyUpdate(paramMoneyVO); 
 			
 			model.addAttribute("RESULT_CODE", "001");
-			model.addAttribute("RESULT_URL", "/money/moneyout.do?inoutFlag="+inoutFlagStr+"&inoutCate1="+inoutCateStr1);//성공후 이동페이지
+			model.addAttribute("RESULT_URL", "/money/moneyout?inoutFlag="+inoutFlagStr+"&inoutCate1="+inoutCateStr1);//성공후 이동페이지
 			
 		}else if("delete".equals(mode)){//=========================================================삭제
 			if(paramMoneyVO==null || "".equals(paramMoneyVO.getMoneyUid())){
@@ -404,7 +404,7 @@ public class MoneyController {
 			if(result>0){
 				model.addAttribute("RESULT_CODE", "003");//이전페이지로
 				model.addAttribute("RESULT_MSG", "삭제처리 완료");//이전페이지로
-				model.addAttribute("RESULT_URL", "/money/moneyout.do?inoutFlag="+inoutFlagStr+"&inoutCate1="+inoutCateStr1);//성공후 이동페이지
+				model.addAttribute("RESULT_URL", "/money/moneyout?inoutFlag="+inoutFlagStr+"&inoutCate1="+inoutCateStr1);//성공후 이동페이지
 			}else{
 				model.addAttribute("RESULT_CODE", "901");//이전페이지로
 				model.addAttribute("RESULT_MSG", "등록에 실패하였습니다.");//이전페이지로

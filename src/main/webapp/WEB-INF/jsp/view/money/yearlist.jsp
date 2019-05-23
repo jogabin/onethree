@@ -52,30 +52,30 @@
 </script>
 
 
-<form action="./planaction.do" method="post" name="moneyForm" id="moneyForm">
+<form action="./planaction" method="post" name="moneyForm" id="moneyForm">
 	<input type="hidden" name="userUid" value="" />
 	<input type="hidden" name="yearDate" value="" />
 	<input type="hidden" name="monthDate" value="" />
 	<input type="hidden" name="moneyUid" value="" />
 	<input type="hidden" name="mode" value="" />
 </form>	
-<form action="./planaction.do" method="post" name="delForm" id="delForm">
+<form action="./planaction" method="post" name="delForm" id="delForm">
 	<input type="hidden" name="moneyUid" value="" />
 	<input type="hidden" name="yearDate" value="" />
 	<input type="hidden" name="mode" value="" />
 </form>		
 
 <div class="col-6" style="padding-bottom:15px;">
-	<a href="./moneyout.do" class="abtn abtn-blue">기타 입출금 내역</a>
+	<a href="./moneyout" class="abtn abtn-blue">기타 입출금 내역</a>
 </div>
 
 <div class="calendar_tab" >
 	<p class="year">
-		<a href="./yearlist.do?yearDate=<%=Integer.parseInt(yearDate)-1 %>" onfocus="this.blur()" title="<%=Integer.parseInt(yearDate)-1 %>년 이동">
+		<a href="./yearlist?yearDate=<%=Integer.parseInt(yearDate)-1 %>" onfocus="this.blur()" title="<%=Integer.parseInt(yearDate)-1 %>년 이동">
 			<img alt="이전년" src="/images/moneylist/mon_arr01.gif">
 		</a>
 		<font><%=yearDate %></font>
-		<a href="./yearlist.do?yearDate=<%=Integer.parseInt(yearDate)+1 %>" onfocus="this.blur()" title="<%=Integer.parseInt(yearDate)+1 %>년 이동">
+		<a href="./yearlist?yearDate=<%=Integer.parseInt(yearDate)+1 %>" onfocus="this.blur()" title="<%=Integer.parseInt(yearDate)+1 %>년 이동">
 			<img alt="다음년" src="<%=request.getContextPath() %>/images/moneylist/mon_arr02.gif">
 		</a>
 		<font class="right_font">총 회비 잔액: <fmt:formatNumber value="${totalInMoney }" pattern="#,###" />원</font>

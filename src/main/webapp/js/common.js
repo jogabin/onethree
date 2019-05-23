@@ -62,9 +62,51 @@ function userIdCheck(loginId) {
 	});	
 }
 
+//이메일 중복 확인
+function userEmailCheck(userEmail) {
+	
+	if(userEmail===""){
+		alert("이메일을 입력해주세요.");
+		return;
+	}
+	
+	if (!isEmail(userEmail)){
+		alert("잘못된 이메일 정보입니다.");
+		return;
+	}
+	
+	var userEmailStr = userEmail;
+	$.ajax({
+		url: "/user/userEmailCheck",	
+		data: {
+			userEmail:userEmailStr
+		},
+		async: false,
+		type: 'GET',
+		dataType: 'json',
+		success: function(data) {
+			console.log(data);
+			if(data.cnt > 0){
+				alert("중복된 이메일정보가 있습니다. 다시 입력해주세요.");
+			}else{
+				alert("사용가능한 이메일입니다.");
+				$("#userEmailConfirm").val("Y");
+			}
+		},
+		error : function(data){
+			console.log(data);
+		}
+	});	
+}
+
 //아이디 중복 확인 초기화
 function userIdConfirmInit() {
 	$("#userIdConfirm").val("N");
+}
+
+//이메일 중복 확인 초기화
+function userEmailConfirmInit() {
+	$("#userEmailConfirm").val("N");
 }
 
 //비밀번호 체크
@@ -90,4 +132,9 @@ function isPassword(str){
 		return false;
 	}
 	return true;
+}
+
+//E-mail 유효성 체크
+function isEmail(s){
+	return s.search(/^\s*[\w\~\-\.]+\@[\w\~\-]+(\.[\w\~\-]+)+\s*$/g)>=0;
 }

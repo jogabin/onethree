@@ -30,7 +30,7 @@
 						<tr>
 							<td scope="row">${rowNum}</td>
 							<td>
-								<a href="./update.do?moneyUserUid=${row.moneyUserUid}&amp;${pageVO.paramStr}">
+								<a href="./update?moneyUserUid=${row.moneyUserUid}&amp;${pageVO.paramStr}">
 									${row.moneyUserName}
 								</a>
 							</td>
@@ -46,7 +46,7 @@
 			</table>
 			
 			<div style="position:relative;margin-bottom:100px !important;">
-				<a href="./write.do" style="float:right;"><button type="button" class="btn btn-primary">등록</button></a>
+				<a href="./write" style="float:right;"><button type="button" class="btn btn-primary">등록</button></a>
 			</div>
 			
 			<ul class="pagination">
