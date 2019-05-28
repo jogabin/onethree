@@ -7,9 +7,9 @@ http://www.springframework.org/schema/jdbc http://www.springframework.org/schema
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/onethree?autoReconnect=true" />
+		<property name="url" value="jdbc:mysql://localhost:3336/onethree?autoReconnect=true" />
 		<property name="username" value="root" />
-		<property name="password" value="" />
+		<property name="password" value="pearl2018" />
 		<property name="maxActive" value="50"/>
 		<property name="maxIdle" value="30"/>
 		<property name="maxWait" value="10000"/>
