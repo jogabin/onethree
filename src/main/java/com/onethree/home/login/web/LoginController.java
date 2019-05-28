@@ -1,34 +1,24 @@
 package com.onethree.home.login.web;
 
-import java.text.DecimalFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.onethree.home.common.util.CommUtil;
-import com.onethree.home.money.service.MoneyService;
-import com.onethree.home.money.vo.MoneyVO;
 import com.onethree.home.user.service.UserService;
 import com.onethree.home.user.vo.UserVO;
 
 @Controller
 public class LoginController {
 
-	protected Log log = LogFactory.getLog(this.getClass());
+	private static final Logger LOGGER = LogManager.getLogger(LoginController.class.getName());
 	
 	//메뉴 타이틀
 	String contentTitle = "로그인";
@@ -122,7 +112,7 @@ public class LoginController {
 					session  = request.getSession(true);
 					session.setAttribute("loginUserVO", loginUserVO);
 					
-					log.info(loginUserVO.getUserId()+" ========================== USER LOGIN SUCCESS!!!!!!!!!!!!!!!!!!!!");
+					LOGGER.info(loginUserVO.getUserId()+" ========================== USER LOGIN SUCCESS!!!!!!!!!!!!!!!!!!!!");
 					
 					model.addAttribute("RESULT_CODE", "010");//로그인성공
 					model.addAttribute("RESULT_URL", returnUrl);//성공후 이동페이지
